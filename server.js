@@ -14,8 +14,8 @@ app.use(express.static("public"));
 // Set Handlebars.
 const exphbs = require("express-handlebars");
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+app.engine("hbs", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "hbs");
 
 const db = require("./models");
 
