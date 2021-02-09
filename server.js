@@ -53,11 +53,12 @@ app.get('/', (req,res) => {
   })
 })
 
-// CREATE a new workout
+// RENDER: NEW WORKOUT
 app.get('/newworkout', (req,res) => {
   res.render('./partials/newWorkout')
 })
 
+//SEE ALL EXERCISES
 app.get('/api/exercises', (req,res) => {
   db.Exercise.find().then(exerciseDb => {
     res.json(exerciseDb)
@@ -67,6 +68,7 @@ app.get('/api/exercises', (req,res) => {
   })
 })
 
+//SEE ALL WORKOUTS
 app.get('/api/workouts', (req,res) => {
   db.Workout.find().then(workoutDb => {
     res.json(workoutDb)
@@ -76,6 +78,7 @@ app.get('/api/workouts', (req,res) => {
   })
 })
 
+//SEE WORKOUT WITH EXERCISES
 app.get('/populatedworkouts', (req,res) => {
   db.Workout.find()
   .populate('exercises')
@@ -87,6 +90,8 @@ app.get('/populatedworkouts', (req,res) => {
   })
 })
 
+
+//CREATE NEW WORKOUT
 app.post('/api/workouts', ({ body }, res) => {
   db.Workout.create(body)
   .then(workoutDb => {
@@ -98,6 +103,7 @@ app.post('/api/workouts', ({ body }, res) => {
   })
 })
 
+//CREATE NEW EXERCISE
 app.post('/api/exercises', (req,res) => {
   console.log(req.body);
   
