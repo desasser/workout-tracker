@@ -4,12 +4,11 @@ const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
   name: String,
-  type: String,
-  weight: Number,
+  type: String, // cardio, strength, flex, etc
+  weight: {type: Number, default: null},
   sets: Number,
   reps: Number,
   duration: Number,
-  isCardio: {type: Boolean, default: false},
   distance: {type: Number, default: 0}
 });
 

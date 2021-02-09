@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
+const path = require('path')
 const mongoose = require("mongoose");
 
 
@@ -14,8 +15,15 @@ app.use(express.static("public"));
 // Set Handlebars.
 const exphbs = require("express-handlebars");
 
-app.engine("hbs", exphbs({ defaultLayout: "main" }));
+const handlebars = exphbs.create({
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+  defaultLayout: 'main',
+  extname: 'hbs'
+})
+
+app.engine("hbs", handlebars.engine);
 app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, 'views'));
 
 const db = require("./models");
 
@@ -29,6 +37,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
 // ================================================================================
 // ROUTER
 // ================================================================================
+
+app.get('/', (req,res) => {
+  res.render('index');
+})
 
 app.get('/api/exercises', (req,res) => {
   db.Exercise.find().then(exerciseDb => {
@@ -48,7 +60,7 @@ app.get('/api/workouts', (req,res) => {
   })
 })
 
-app.get('populatedworkouts', (req,res) => {
+app.get('/populatedworkouts', (req,res) => {
   db.Workout.find()
   .populate('exercises')
   .then(workoutDb => {
