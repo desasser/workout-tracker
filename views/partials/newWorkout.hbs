@@ -1,10 +1,12 @@
 <div class="new-workout-container">
   <div class="positioning">
-    <h1>Plan your workout now! Do it now! Get to the gym!</h1>
+    <h1>Plan your workout! Do it now! Get to the gym!</h1>
 
-    <form action="/api/workouts" id="new-workout">
-      <input type="text" name="workout-name" id="workout-name" placeholder="new workout name...">
-      <input type="submit" value="Add workout" class="button">
+    <form action="/newworkout" method="post" id="new-workout">
+      <div class="form-container">
+        <input type="text" name="name" id="workout-name" placeholder="Workout Name" required>
+        <input type="submit" value="Add workout" class="button">
+      </div>
     </form>
   </div>
 </div>

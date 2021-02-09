@@ -58,6 +58,11 @@ app.get('/newworkout', (req,res) => {
   res.render('./partials/newWorkout')
 })
 
+// RENDER: NEW EXERCISE
+app.get('/newexercise', (req,res) => {
+  res.render('./partials/newExercise')
+})
+
 //SEE ALL EXERCISES
 app.get('/api/exercises', (req,res) => {
   db.Exercise.find().then(exerciseDb => {
@@ -92,10 +97,11 @@ app.get('/populatedworkouts', (req,res) => {
 
 
 //CREATE NEW WORKOUT
-app.post('/api/workouts', ({ body }, res) => {
+app.post('/newworkout', ({ body }, res) => {
   db.Workout.create(body)
   .then(workoutDb => {
-    res.json(workoutDb)
+    res.json(workoutDb);
+    res.redirect('/newexercise');
   })
   .catch(err => {
     console.log(err);

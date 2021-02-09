@@ -160,8 +160,9 @@ h1 {
 }
 
 #workout-name {
-  height: 50px;
-  width: 250px;
+  height: 28px;
+  padding: 10px;
+  width: 228px;
   border-radius: 0.5em;
   border: 1px black solid;
 }
