@@ -11,21 +11,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// Set Handlebars.
+const exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 const db = require("./models");
-
-// Workout routes
-const workoutRoutes = require("./controllers/workoutController.js");
-app.use(workoutRoutes)
-
-// Exercise routes
-const exerciseRoutes = require("./controllers/exerciseController.js");
-app.use(exerciseRoutes)
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true
 });
+
 
 // ================================================================================
 // ROUTER
@@ -60,7 +59,30 @@ app.get('populatedworkouts', (req,res) => {
   })
 })
 
+app.post('/api/workouts', ({ body }, res) => {
+  db.Workout.create(body)
+  .then(workoutDb => {
+    res.json(workoutDb)
+  })
+  .catch(err => {
+    console.log(err);
+    res.send(err);
+  })
+})
 
+app.post('/api/exercises', (req,res) => {
+  console.log(req.body);
+  
+  db.Exercise.create(req.body)
+  .then(exerciseDb => {
+    db.Workout.findOneAndUpdate({_id:req.body.workoutId}, {$push: {exercises: exerciseDb._id}})
+    .then(workoutDb => res.send(workoutDb))
+  })
+  .catch(err => {
+    console.log(err);
+    res.send(err);
+  })
+})
 
 // =============================================================================
 // LISTENER

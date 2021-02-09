@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Workout Tracker</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body>
-<!-- On load show welcome page
+
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- On load show welcome page
       Show previous workout
       Create new workout
       Add exercises to previous workout plan
       Add exercises to new workout plan -->
+  <h1>Plan your workout now! Do it now! Get to the gym!</h1>
+  <form id="new-workout">
+    <input type="text" name="workout-name" id="workout-name" placeholder="new workout name...">
+    <input type="submit" value="Add workout">
+  </form>
 
+  <div id="workouts"></div>
 
-  </body>
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
