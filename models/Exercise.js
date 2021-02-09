@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
@@ -8,11 +9,12 @@ const ExerciseSchema = new Schema({
   sets: Number,
   reps: Number,
   duration: Number,
-  isCardio: Boolean
+  isCardio: Boolean,
+  distance: Number
 });
 
 // if cardio, add distance key
 
-const Exercise = mongoose.model("Note", ExerciseSchema);
+const Exercise = mongoose.model("Exercise", ExerciseSchema);
 
 module.exports = Exercise;

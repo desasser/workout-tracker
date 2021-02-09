@@ -19,18 +19,15 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+// Workout routes
+const workoutRoutes = require("./controllers/workoutController.js");
+app.use(workoutRoutes)
+
 // Exercise routes
 const exerciseRoutes = require("./controllers/exerciseController.js");
 app.use(exerciseRoutes)
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true });
-
-db.Workout.create({ name: "Workout Plan" })
-  .then(dbWorkout => {
-    console.log(dbWorkout);
-  }).catch(err => {
-    console.log(err);
-  })
 
 // Start the server
 app.listen(PORT, () => {
