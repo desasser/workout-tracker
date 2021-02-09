@@ -9,8 +9,8 @@ const ExerciseSchema = new Schema({
   sets: Number,
   reps: Number,
   duration: Number,
-  isCardio: Boolean,
-  distance: Number
+  isCardio: {type: Boolean, default: false},
+  distance: {type: Number, default: 0}
 });
 
 // if cardio, add distance key
