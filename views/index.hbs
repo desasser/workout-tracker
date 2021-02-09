@@ -7,30 +7,8 @@
   </nav>
 </header>
 <main class="container">
-  <h1>Plan your workout now! Do it now! Get to the gym!</h1>
 
-  <form id="new-workout">
-    <input type="text" name="workout-name" id="workout-name" placeholder="new workout name...">
-    <input type="submit" value="Add workout">
-  </form>
 
-  {{this}}
-  <div id="workouts">
-    {{#each this}}
-    <h1>{{name}}</h1>
-    {{#each exercises}}
-    <div class="exercise">
-      <p>Name: {{name}}</p>
-      <p>Type: {{type}}</p>
-      <p>Weight: {{weight}}</p>
-      <p>Sets: {{sets}}</p>
-      <p>Reps: {{reps}}</p>
-      <p>Duration: {{duration}}</p>
-      <p>Distance: {{distance}}</p>
-    </div>
-    {{/each}}
-    {{/each}}
-  </div>
 
 </main>
 
