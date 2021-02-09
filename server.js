@@ -53,6 +53,11 @@ app.get('/', (req,res) => {
   })
 })
 
+// CREATE a new workout
+app.get('/newworkout', (req,res) => {
+  res.render('./partials/newWorkout')
+})
+
 app.get('/api/exercises', (req,res) => {
   db.Exercise.find().then(exerciseDb => {
     res.json(exerciseDb)
