@@ -40,18 +40,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
 // ================================================================================
 
 app.get('/', (req, res) => {
-  db.Workout.find()
-    .populate('exercises')
-    .then(workoutDb => {
-      // const hbsObj = {
-      //   workouts : workoutDb
-      // }
-      const data = JSON.stringify(workoutDb);
-      res.render('index', JSON.parse(data))
-    }).catch(err => {
-      console.log(err);
-      res.send(err);
-    })
+  res.render('index')
 })
 
 // RENDER: NEW WORKOUT
