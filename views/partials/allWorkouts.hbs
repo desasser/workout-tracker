@@ -2,12 +2,9 @@
   <div class="positioning">
     <h1>Pick your workout! Do it now!</h1>
     <div id="workout-picker">
-      {{!-- <form action="/workout" method="get"> --}}
         {{#each workout}}
-        {{!-- <input type="text" name="workoutId" style="display:none;" id="exercise-workoutId" value="{{_id}}"> --}}
         <button type="submit" name="workoutId" value="{{_id}}" class="big-button">{{name}}</button>
         {{/each}}
-      {{!-- </form> --}}
     </div>
   </div>
 </div>

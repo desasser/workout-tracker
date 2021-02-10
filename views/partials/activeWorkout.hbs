@@ -1,0 +1,18 @@
+<div class="one-workout-container">
+  <div class="positioning">
+    <h1>Here are your exercises! Do them now!</h1>
+    <div id="active-workout">
+      {{#each exercise}}
+      <div class="exercise-container">
+        <p><span>Name:</span><span> {{name}}</span></p>
+        <p><span>Type:</span><span>  {{type}}</span></p>
+        <p><span>Weight:</span><span>  {{weight}} lbs</span></p>
+        <p><span>Sets:</span><span>  {{sets}}</span></p>
+        <p><span>Reps:</span><span>  {{reps}}</span></p>
+        <p><span>Duration:</span><span>  {{duration}} seconds</span></p>
+        <p><span>Distance:</span><span>  {{distance}} miles</span></p>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

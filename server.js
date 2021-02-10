@@ -50,7 +50,7 @@ app.get('/newworkout', (req, res) => {
 
 // RENDER: NEW EXERCISE
 app.get('/newexercise', (req, res) => {
-  db.Workout.find().sort({ _id: -1 }).limit(5).lean().then(workoutsData => {
+  db.Workout.find().sort({ _id: -1 }).limit(8).lean().then(workoutsData => {
     // console.log(workoutsData);
     const hbsObj = {
       workout: workoutsData
@@ -62,7 +62,7 @@ app.get('/newexercise', (req, res) => {
 
 // RENDER: ALL WORKOUTS
 app.get('/workouts', (req, res) => {
-  db.Workout.find().sort({ _id: -1 }).limit(5).lean().then(workoutsData => {
+  db.Workout.find().sort({ _id: -1 }).limit(8).lean().then(workoutsData => {
     // console.log('raw data', workoutsData);
     const hbsObj = {
       workout: workoutsData
@@ -74,15 +74,21 @@ app.get('/workouts', (req, res) => {
 
 // RENDER: SPECIFIC WORKOUT
 app.get('/activeworkout/:id', (req, res) => {
-  db.Workout.find({_id:mongojs.ObjectId(req.params.id)})
-    .populate('exercises')
+  // console.log('hello');
+  db.Workout.find({ _id: req.params.id})
+    .populate('exercises').lean()
     .then(workoutDb => {
-      res.json(workoutDb)
+      // console.log(workoutDb[0].exercises);
+      // res.json(workoutDb[0].exercises)
+      const hbsObj = {
+        exercise: workoutDb[0].exercises
+      }
+      res.render('partials/activeWorkout', hbsObj)
+      // res.json(workoutDb)
     }).catch(err => {
       console.log(err);
       res.send(err);
     })
-  // console.log('workout body', req.params);
 })
 
 //SEE ALL EXERCISES
@@ -133,10 +139,10 @@ app.post('/newworkout', ({ body }, res) => {
 
 //CREATE NEW EXERCISE
 app.post('/newexercise', (req, res) => {
-  // console.log(req.body.workoutId[0]);
+  console.log(req.body.workoutId);
 
   db.Exercise.create({
-    workoutId: req.body.workoutId[0],
+    workoutId: req.body.workoutId,
     name: req.body.name,
     type: req.body.type,
     weight: req.body.weight,
@@ -146,8 +152,10 @@ app.post('/newexercise', (req, res) => {
     distance: req.body.distance
   })
     .then(exerciseDb => {
-      db.Workout.findOneAndUpdate({ _id: req.body.workoutId[0] }, { $push: { exercises: exerciseDb._id } })
-        .then(workoutDb => res.send(workoutDb))
+      db.Workout.findOneAndUpdate({ _id: req.body.workoutId }, { $push: { exercises: exerciseDb._id } })
+        .then(workoutDb => {
+          res.redirect('/newexercise')
+        })
     })
     .catch(err => {
       console.log(err);
