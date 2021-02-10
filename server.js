@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 
 // RENDER: NEW WORKOUT
 app.get('/newworkout', (req, res) => {
-  res.render('./partials/newWorkout')
+  res.render('newWorkout')
 })
 
 // RENDER: NEW EXERCISE
@@ -56,7 +56,7 @@ app.get('/newexercise', (req, res) => {
       workout: workoutsData
     }
     console.log(hbsObj);
-    res.render('./partials/newExercise', hbsObj)
+    res.render('newExercise', hbsObj)
   })
 })
 
@@ -68,7 +68,7 @@ app.get('/workouts', (req, res) => {
       workout: workoutsData
     }
     // console.log('fixed data', hbsObj);
-    res.render('./partials/allWorkouts', hbsObj)
+    res.render('allWorkouts', hbsObj)
   })
 })
 
@@ -83,7 +83,7 @@ app.get('/activeworkout/:id', (req, res) => {
       const hbsObj = {
         exercise: workoutDb[0].exercises
       }
-      res.render('partials/activeWorkout', hbsObj)
+      res.render('activeWorkout', hbsObj)
       // res.json(workoutDb)
     }).catch(err => {
       console.log(err);
@@ -129,7 +129,6 @@ app.post('/newworkout', ({ body }, res) => {
   db.Workout.create(body)
     .then(workoutDb => {
       res.redirect('/newexercise');
-      // res.json(workoutDb);
     })
     .catch(err => {
       console.log(err);
