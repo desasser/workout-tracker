@@ -1,0 +1,44 @@
+<div class="new-exercise-container">
+  <div class="positioning-new-exercise">
+    <h1>Add an exercise to your workout! Do it now!</h1>
+
+    <form action="/newexercise" method="post" id="new-exercise" name={{workoutId}}>
+      <div class="form-container">
+        <p> Which workout: 
+          <select name="workoutId" id="specific-workout">
+            {{#each workout}}
+              <option value={{_id}}>{{name}}</option>
+            {{/each}}
+          </select>
+        </p>
+        <p> Exercise Name: 
+          <input type="text" class="data-input" name="name" id="exercise-name" placeholder="Exercise Name" required>
+        </p>
+        <p> Type:
+          <input type="text" class="data-input" name="type" id="exercise-type" placeholder="Type" required>
+        </p>
+        <p> Weight:
+          <input type="text" class="data-input" name="weight" id="exercise-weight" placeholder="Weight" required>
+        </p>
+        <p> Sets:
+          <input type="text" class="data-input" name="sets" id="exercise-sets" placeholder="Sets" required>
+        </p>
+        <p> Reps: 
+          <input type="text" class="data-input" name="reps" id="exercise-reps" placeholder="Reps" required>
+        </p>
+        <p> Duration: 
+          <input type="text" class="data-input" name="duration" id="exercise-duration" placeholder="Duration" required>
+        </p>
+        <p> Distance: 
+          <input type="text" class="data-input" name="distance" id="exercise-distance" placeholder="Distance" required>
+        </p>
+        <p>
+          <input type="submit" value="Add Exercise" class="button">
+        </p>
+        <p>
+        </p>
+      </div>
+    </form>
+          <a href=""><button>Done</button></a>
+  </div>
+</div>
