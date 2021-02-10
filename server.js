@@ -28,9 +28,10 @@ app.set("views", path.join(__dirname, 'views'));
 const db = require("./models");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 
 
@@ -38,33 +39,33 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
 // ROUTER
 // ================================================================================
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
   db.Workout.find()
-  .populate('exercises')
-  .then(workoutDb => {
-    // const hbsObj = {
-    //   workouts : workoutDb
-    // }
-    const data = JSON.stringify(workoutDb);
-    res.render('index', JSON.parse(data))
-  }).catch(err => {
-    console.log(err);
-    res.send(err);
-  })
+    .populate('exercises')
+    .then(workoutDb => {
+      // const hbsObj = {
+      //   workouts : workoutDb
+      // }
+      const data = JSON.stringify(workoutDb);
+      res.render('index', JSON.parse(data))
+    }).catch(err => {
+      console.log(err);
+      res.send(err);
+    })
 })
 
 // RENDER: NEW WORKOUT
-app.get('/newworkout', (req,res) => {
+app.get('/newworkout', (req, res) => {
   res.render('./partials/newWorkout')
 })
 
 // RENDER: NEW EXERCISE
-app.get('/newexercise', (req,res) => {
+app.get('/newexercise', (req, res) => {
   res.render('./partials/newExercise')
 })
 
 //SEE ALL EXERCISES
-app.get('/api/exercises', (req,res) => {
+app.get('/api/exercises', (req, res) => {
   db.Exercise.find().then(exerciseDb => {
     res.json(exerciseDb)
   }).catch(err => {
@@ -74,7 +75,7 @@ app.get('/api/exercises', (req,res) => {
 })
 
 //SEE ALL WORKOUTS
-app.get('/api/workouts', (req,res) => {
+app.get('/api/workouts', (req, res) => {
   db.Workout.find().then(workoutDb => {
     res.json(workoutDb)
   }).catch(err => {
@@ -84,44 +85,44 @@ app.get('/api/workouts', (req,res) => {
 })
 
 //SEE WORKOUT WITH EXERCISES
-app.get('/populatedworkouts', (req,res) => {
+app.get('/populatedworkouts', (req, res) => {
   db.Workout.find()
-  .populate('exercises')
-  .then(workoutDb => {
-    res.json(workoutDb)
-  }).catch(err => {
-    console.log(err);
-    res.send(err);
-  })
+    .populate('exercises')
+    .then(workoutDb => {
+      res.json(workoutDb)
+    }).catch(err => {
+      console.log(err);
+      res.send(err);
+    })
 })
 
 
 //CREATE NEW WORKOUT
 app.post('/newworkout', ({ body }, res) => {
   db.Workout.create(body)
-  .then(workoutDb => {
-    res.json(workoutDb);
-    res.redirect('/newexercise');
-  })
-  .catch(err => {
-    console.log(err);
-    res.send(err);
-  })
+    .then(workoutDb => {
+      res.json(workoutDb);
+      res.redirect('/newexercise');
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(err);
+    })
 })
 
 //CREATE NEW EXERCISE
-app.post('/api/exercises', (req,res) => {
+app.post('/api/exercises', (req, res) => {
   console.log(req.body);
-  
+
   db.Exercise.create(req.body)
-  .then(exerciseDb => {
-    db.Workout.findOneAndUpdate({_id:req.body.workoutId}, {$push: {exercises: exerciseDb._id}})
-    .then(workoutDb => res.send(workoutDb))
-  })
-  .catch(err => {
-    console.log(err);
-    res.send(err);
-  })
+    .then(exerciseDb => {
+      db.Workout.findOneAndUpdate({ _id: req.body.workoutId }, { $push: { exercises: exerciseDb._id } })
+        .then(workoutDb => res.send(workoutDb))
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(err);
+    })
 })
 
 // =============================================================================
