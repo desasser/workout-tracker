@@ -48,12 +48,14 @@ table {
 body {
   background-image: url('./images/background_img.jpg');
   background-size: cover;
+  background-position: center;
   font-family: Arial, Helvetica, sans-serif;
   background-repeat: no-repeat;
   height: 100vh;
   margin-top: 80px;
   padding: 30px;
   /* position: fixed; */
+  overflow-y:hidden;
 }
 
 header {
