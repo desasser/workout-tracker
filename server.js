@@ -57,6 +57,9 @@ app.get('/newexercise', (req, res) => {
     }
     console.log(hbsObj);
     res.render('newExercise', hbsObj)
+  }).catch(err => {
+    console.log(err.message);
+    res.status(404).send(err.message)
   })
 })
 
@@ -69,6 +72,9 @@ app.get('/workouts', (req, res) => {
     }
     // console.log('fixed data', hbsObj);
     res.render('allWorkouts', hbsObj)
+  }).catch(err => {
+    console.log(err.message);
+    res.status(404).send(err.message)
   })
 })
 
@@ -87,7 +93,7 @@ app.get('/activeworkout/:id', (req, res) => {
       // res.json(workoutDb)
     }).catch(err => {
       console.log(err);
-      res.send(err);
+      res.status(404).send(err.message)
     })
 })
 
@@ -98,6 +104,9 @@ app.get('/api/exercises', (req, res) => {
   }).catch(err => {
     console.log(err);
     res.send(err);
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err.message)
   })
 })
 
@@ -108,6 +117,9 @@ app.get('/api/workouts', (req, res) => {
   }).catch(err => {
     console.log(err);
     res.send(err);
+  }).catch(err => {
+    console.log(err);
+    res.status(500).send(err.message)
   })
 })
 
@@ -120,6 +132,9 @@ app.get('/populatedworkouts', (req, res) => {
     }).catch(err => {
       console.log(err);
       res.send(err);
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send(err.message)
     })
 })
 
@@ -155,8 +170,7 @@ app.post('/newexercise', (req, res) => {
         .then(workoutDb => {
           res.redirect('/newexercise')
         })
-    })
-    .catch(err => {
+    }).catch(err => {
       console.log(err);
       res.send(err);
     })
